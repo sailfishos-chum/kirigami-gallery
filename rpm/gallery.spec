@@ -47,7 +47,7 @@ PackageName: Kirigami Demo Gallery
 Type: desktop-application
 Categories:
  - Utilities
-Icon: https://github.com/sailfishos-chum/angelfish/raw/main/rpm/kirigami-logo.png
+Icon: https://raw.githubusercontent.com/sailfishos-chum/kirigami-gallery/main/rpm/kirigami-logo.png
 Custom:
   Repo: https://invent.kde.org/sdk/kirigami-gallery
   PackagingRepo: https://github.com/sailfishos-chum/kirigami-gallery
@@ -82,6 +82,8 @@ install -p -m644 -D %{SOURCE10} \
 	%{buildroot}/%{_datadir}/icons/hicolor/108x108/apps/kirigami-gallery.png
 install -p -m644 -D %{SOURCE10} \
 	%{buildroot}/%{_datadir}/icons/hicolor/128x128/apps/kirigami-gallery.png
+install -p -m644 -D %{SOURCE10} \
+	%{buildroot}/%{_datadir}/icons/hicolor/256x256/apps/kirigami-gallery.png
 
 # adjust Exec command in .desktop
 sed -i "s|Exec=kirigami2gallery|Exec=qt-runner /usr/bin/kirigami2gallery|g" \
