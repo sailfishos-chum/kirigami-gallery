@@ -10,6 +10,8 @@ License:        MIT and GPLv2+ and LGPLv2 and LGPLv2+
 URL:            https://invent.kde.org/sdk/kirigami-gallery
 Source0: %{name}-%{version}.tar.bz2
 
+Source10: kirigami-logo.png
+
 %{?opt_kf5_default_filter}
 
 #BuildRequires:  appstream
@@ -45,6 +47,7 @@ PackageName: Kirigami Demo Gallery
 Type: desktop-application
 Categories:
  - Utilities
+Icon: https://github.com/sailfishos-chum/angelfish/raw/main/rpm/kirigami-logo.png
 Custom:
   Repo: https://invent.kde.org/sdk/kirigami-gallery
   PackagingRepo: https://github.com/sailfishos-chum/kirigami-gallery
@@ -72,15 +75,27 @@ pushd build
 make DESTDIR=%{buildroot} install
 popd
 
+# copy icons
+install -p -m644 -D %{SOURCE10} \
+	%{buildroot}/%{_datadir}/icons/hicolor/86x86/apps/kirigami-gallery.png
+install -p -m644 -D %{SOURCE10} \
+	%{buildroot}/%{_datadir}/icons/hicolor/108x108/apps/kirigami-gallery.png
+install -p -m644 -D %{SOURCE10} \
+	%{buildroot}/%{_datadir}/icons/hicolor/128x128/apps/kirigami-gallery.png
+
 # adjust Exec command in .desktop
 sed -i "s|Exec=kirigami2gallery|Exec=qt-runner /usr/bin/kirigami2gallery|g" \
     %{buildroot}/%{_datadir}/applications/org.kde.kirigami2.gallery.desktop
+# swap icon
+sed -i "s|Icon=preferences-desktop-theme|Icon=kirigami-gallery|g" \
+    %{buildroot}/%{_datadir}/applications/org.kde.kirigami2.gallery.desktop
+# add sfos settings
 echo -e "X-Nemo-Single-Instance=no\nX-Nemo-Application-Type=no-invoker\n\n[X-Sailjail]\nSandboxing=Disabled" >> \
      %{buildroot}/%{_datadir}/applications/org.kde.kirigami2.gallery.desktop
 
 
 %files
 %{_bindir}/%{name}
-
+%{_datadir}/icons/hicolor/*/apps/kirigami-gallery.png
 %{_datadir}/applications/org.kde.kirigami2.gallery.desktop
 %{_datadir}/locale
