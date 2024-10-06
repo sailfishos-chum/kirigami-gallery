@@ -17,6 +17,7 @@ Source10: kirigami-logo.png
 #BuildRequires:  appstream
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
+BuildRequires:  python(abi) >= 3.0.0
 BuildRequires:  kf6-extra-cmake-modules
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
