@@ -1,7 +1,7 @@
 %global _metainfodir %{_datadir}/metainfo
 
 Name:           kirigami2gallery
-Version:        23.08.5
+Version:        24.08.1
 Release:        1%{?dist}
 Summary:        Kirigami component gallery application
 
@@ -17,26 +17,23 @@ Source10: kirigami-logo.png
 #BuildRequires:  appstream
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
-BuildRequires:  opt-extra-cmake-modules
+BuildRequires:  python(abi) >= 3.0.0
+BuildRequires:  kf6-extra-cmake-modules
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  opt-kf5-rpm-macros
+BuildRequires:  kf6-rpm-macros
  
-BuildRequires:  opt-kf5-kirigami2-devel
-BuildRequires:  opt-kf5-kirigami-addons
-BuildRequires:  opt-kf5-kitemmodels-devel
+BuildRequires:  kf6-kirigami-devel
+BuildRequires:  kf6-kirigami-addons-devel
+BuildRequires:  kf6-kitemmodels-devel
 
-BuildRequires:  opt-qt5-qtbase-devel
-BuildRequires:  opt-qt5-qtdeclarative-devel
-BuildRequires:  opt-qt5-qtquickcontrols2-devel
-BuildRequires:  opt-qt5-qtsvg-devel
-BuildRequires:  opt-qt5-linguist
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-qtdeclarative-devel
+BuildRequires:  qt6-qtquickcontrols2-devel
+BuildRequires:  qt6-qtsvg-devel
+BuildRequires:  qt6-qttools-devel
 
-%{?_opt_qt5:Requires: %{_opt_qt5}%{?_isa} = %{_opt_qt5_version}}
-Requires: opt-qt5-qtbase-gui
-Requires: opt-kf5-kirigami2%{_isa} 
-Requires: opt-kf5-kirigami-addons
-Requires: opt-kf5-kitemmodels
+%{?_qt6:Requires: %{_qt6}%{?_isa} = %{_qt6_version}}
 Requires: qt-runner
 Requires: breeze-icons
 
@@ -56,12 +53,7 @@ Custom:
 %autosetup -n %{name}-%{version}/upstream -p1
 
 %build
-export QTDIR=%{_opt_qt5_prefix}
-touch .git
-
-%_opt_cmake_kf5 ../ \
-		-DKDE_INSTALL_BINDIR:PATH=/usr/bin \
-		-DCMAKE_INSTALL_PREFIX:PATH=/usr/
+%cmake_kf6
 %cmake_build
 
 %install
